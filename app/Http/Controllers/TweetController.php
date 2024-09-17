@@ -49,6 +49,7 @@ class TweetController extends Controller
     public function show(Tweet $tweet)
     {
         // 詳細画面の表示
+        $tweet->load('comments');
         return view('tweets.show', compact('tweet'));
     }
 

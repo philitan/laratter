@@ -9,6 +9,8 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
+          <!-- ツイート作成(formタグを使用、formタグを使用する時は@csrfは絶対) -->
+          <!-- (csrfとは？→htmlタグなどの悪い人が仕込みそうな値を防ぐための処理) -->
           <form method="POST" action="{{ route('tweets.store') }}">
             @csrf
             <div class="mb-4">
