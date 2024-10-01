@@ -38,7 +38,50 @@ class TweetController extends Controller
             'tweet' => 'required|max:255',
         ]);
 
-        $request->user()->tweets()->create($request->only('tweet'));
+        // beforeにtweetを入れる
+        $before = $request->tweet;
+
+        // 変換の処理
+        $beforearray = [];
+        $afterarray = [];
+
+
+        for($i=0; $i<strlen($before); $i++){
+            array_push($beforearray,substr($before, $i, 1));
+        }
+
+        for($i=0; $i<count($beforearray); $i++){
+            if($i<count($beforearray)-2){
+                if(preg_match('/^\[$/', $beforearray[$i])){
+                    if(preg_match('/^\]$/', $beforearray[$i+2])){
+                        if(preg_match('/^a$/', $beforearray[$i+1])){
+                            array_push($afterarray, "🍨");
+                            $i+=2;
+                            continue;
+                        }
+                        if(preg_match('/^b$/', $beforearray[$i+1])){
+                            array_push($afterarray, "🍌");
+                            $i+=2;
+                            continue;
+                        }
+                        if(preg_match('/^c$/', $beforearray[$i+1])){
+                            array_push($afterarray, "🍛");
+                            $i+=2;
+                            continue;
+                        }
+                    }
+                }
+            }
+            array_push($afterarray, $before[$i]);
+        }
+        $after = implode($afterarray);
+
+        // tweetsテーブルに挿入
+        $tweet = new Tweet();
+        $tweet->tweet = $after;
+        $tweet->before = $before;
+        $tweet->user_id = $request->user()->id;
+        $tweet->save();
 
         return redirect()->route('tweets.index');
     }
@@ -72,7 +115,51 @@ class TweetController extends Controller
             'tweet' => 'required|max:255',
         ]);
 
-        $tweet->update($request->only('tweet'));
+        // beforeにtweetを入れる
+        $before = $request->tweet;
+
+        // 変換の処理
+        $beforearray = [];
+        $afterarray = [];
+
+
+        for($i=0; $i<strlen($before); $i++){
+            array_push($beforearray,substr($before, $i, 1));
+        }
+
+        for($i=0; $i<count($beforearray); $i++){
+            if($i<count($beforearray)-2){
+                if(preg_match('/^\[$/', $beforearray[$i])){
+                    if(preg_match('/^\]$/', $beforearray[$i+2])){
+                        if(preg_match('/^a$/', $beforearray[$i+1])){
+                            array_push($afterarray, "🍨");
+                            $i+=2;
+                            continue;
+                        }
+                        if(preg_match('/^b$/', $beforearray[$i+1])){
+                            array_push($afterarray, "🍌");
+                            $i+=2;
+                            continue;
+                        }
+                        if(preg_match('/^c$/', $beforearray[$i+1])){
+                            array_push($afterarray, "🍛");
+                            $i+=2;
+                            continue;
+                        }
+                    }
+                }
+            }
+            array_push($afterarray, $before[$i]);
+        }
+        $after = implode($afterarray);
+
+        // tweetsテーブルのアップデート
+        $tweet->update([  
+            "tweet" => $after,
+            "before" => $before,
+            "user_id" => $request->user()->id,
+        ]);
+
         return redirect()->route('tweets.show', $tweet);
     }
 

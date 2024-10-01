@@ -12,6 +12,7 @@
           <a href="{{ route('tweets.index') }}" class="text-blue-500 hover:text-blue-700 mr-2">一覧に戻る</a>
           <!-- ツイートの表示 -->
           <p class="text-gray-800 dark:text-gray-300 text-lg">{{ $tweet->tweet }}</p>
+          <p class="text-green-600 dark:text-green-400 text-sm">変換前: {{ $tweet->before }}</p>
           <p class="text-gray-600 dark:text-gray-400 text-sm">投稿者: {{ $tweet->user->name }}</p>
           <div class="text-gray-600 dark:text-gray-400 text-sm">
             <p>作成日時: {{ $tweet->created_at->format('Y-m-d H:i') }}</p>
