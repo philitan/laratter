@@ -85,7 +85,7 @@ it('displays the edit tweet page', function () {
 
   // ビューにTweetの内容が含まれていることを確認
   $response->assertStatus(200);
-  $response->assertSee($tweet->tweet);
+  $response->assertSee($tweet->before);
 });
 
 // 更新処理のテスト
