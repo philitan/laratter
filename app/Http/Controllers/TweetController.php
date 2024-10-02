@@ -42,29 +42,23 @@ class TweetController extends Controller
         $before = $request->tweet;
 
         // 変換の処理
-        $beforearray = [];
         $afterarray = [];
 
-
         for($i=0; $i<strlen($before); $i++){
-            array_push($beforearray,substr($before, $i, 1));
-        }
-
-        for($i=0; $i<count($beforearray); $i++){
-            if($i<count($beforearray)-2){
-                if(preg_match('/^\[$/', $beforearray[$i])){
-                    if(preg_match('/^\]$/', $beforearray[$i+2])){
-                        if(preg_match('/^a$/', $beforearray[$i+1])){
+            if($i<strlen($before)-2){
+                if(preg_match('/^\[$/', $before[$i])){
+                    if(preg_match('/^\]$/', $before[$i+2])){
+                        if(preg_match('/^a$/', $before[$i+1])){
                             array_push($afterarray, "🍨");
                             $i+=2;
                             continue;
                         }
-                        if(preg_match('/^b$/', $beforearray[$i+1])){
+                        if(preg_match('/^b$/', $before[$i+1])){
                             array_push($afterarray, "🍌");
                             $i+=2;
                             continue;
                         }
-                        if(preg_match('/^c$/', $beforearray[$i+1])){
+                        if(preg_match('/^c$/', $before[$i+1])){
                             array_push($afterarray, "🍛");
                             $i+=2;
                             continue;
@@ -119,29 +113,23 @@ class TweetController extends Controller
         $before = $request->tweet;
 
         // 変換の処理
-        $beforearray = [];
         $afterarray = [];
 
-
         for($i=0; $i<strlen($before); $i++){
-            array_push($beforearray,substr($before, $i, 1));
-        }
-
-        for($i=0; $i<count($beforearray); $i++){
-            if($i<count($beforearray)-2){
-                if(preg_match('/^\[$/', $beforearray[$i])){
-                    if(preg_match('/^\]$/', $beforearray[$i+2])){
-                        if(preg_match('/^a$/', $beforearray[$i+1])){
+            if($i<strlen($before)-2){
+                if(preg_match('/^\[$/', $before[$i])){
+                    if(preg_match('/^\]$/', $before[$i+2])){
+                        if(preg_match('/^a$/', $before[$i+1])){
                             array_push($afterarray, "🍨");
                             $i+=2;
                             continue;
                         }
-                        if(preg_match('/^b$/', $beforearray[$i+1])){
+                        if(preg_match('/^b$/', $before[$i+1])){
                             array_push($afterarray, "🍌");
                             $i+=2;
                             continue;
                         }
-                        if(preg_match('/^c$/', $beforearray[$i+1])){
+                        if(preg_match('/^c$/', $before[$i+1])){
                             array_push($afterarray, "🍛");
                             $i+=2;
                             continue;
